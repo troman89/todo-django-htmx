@@ -37,3 +37,25 @@ def check_username(request):
         return HttpResponse("<div id='username-error' class='error'>This user is already exists<div>")
     else:
         return HttpResponse("<div id='username-error' class='success'>User is available<div>")
+
+
+
+@login_required
+def add_task(request):
+    task = request.POST.get('name')
+
+    Todo.objects.create(task=task, user=request.user)
+    tasks = Todo.objects.filter(user=request.user)
+
+    return render(request, 'partials/todos.html', {'tasks': tasks})
+
+
+@login_required
+@require_http_methods(['DELETE'])
+def delete_task(request, pk):
+    Todo.objects.get(pk=pk).delete()
+    tasks = Todo.objects.filter(user=request.user)
+    return render(request, 'partials/todos.html', {'tasks': tasks})
+
+
+

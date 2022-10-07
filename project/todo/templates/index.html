@@ -2,8 +2,10 @@
 
 {% block content %}
 
-<p>Welcome!</p>
+<p>Welcome {{user}}!</p>
 
 {% lorem 2 p %}
+{% include 'partials/todo-list.html' %}
 
 {% endblock content %}
+
