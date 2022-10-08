@@ -58,4 +58,18 @@ def delete_task(request, pk):
     return render(request, 'partials/todos.html', {'tasks': tasks})
 
 
+def done(request, pk):
+    if Todo.objects.filter(pk=pk, done=False).exists():
+        Todo.objects.filter(pk=pk).update(done=True)
+    else:
+        Todo.objects.filter(pk=pk).update(done=False)
+
+    tasks = Todo.objects.filter(user=request.user)
+    return render(request, 'partials/todos.html', {'tasks': tasks})
+
+
+def sort(request):
+    pass
+
+
 

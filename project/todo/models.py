@@ -12,3 +12,6 @@ class Todo(models.Model):
     task = models.CharField(max_length=100)
     done = models.BooleanField(default=False)
     order = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self):
+        return self.task
